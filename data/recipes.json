@@ -1,0 +1,25 @@
+{
+    "Chicken Fried Rice": [
+        "chicken",
+        "rice",
+        "egg"
+    ],
+    "Tomato Cheese Sandwich": [
+        "tomato",
+        "cheese",
+        "bread"
+    ],
+    "Omelette": [
+        "eggs",
+        "milk",
+        "cheese"
+    ],
+    "Grilled Chicken": [
+        "chicken",
+        "tomato"
+    ],
+    "Cheese Toast": [
+        "cheese",
+        "bread"
+    ]
+}
