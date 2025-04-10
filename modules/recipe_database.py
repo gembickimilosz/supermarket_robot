@@ -6,8 +6,16 @@ class RecipeDatabase:
             self.recipes = json.load(f)
 
     def get_matching_recipes(self, ingredients):
-        matches = []
+        full_matches = []
+        partial_matches = []
+
         for recipe, recipe_ingredients in self.recipes.items():
-            if all(ingredient in ingredients for ingredient in recipe_ingredients):
-                matches.append(recipe)
-        return matches
+            matched = [item for item in recipe_ingredients if item in ingredients]
+            missing = [item for item in recipe_ingredients if item not in ingredients]
+
+            if not missing:
+                full_matches.append(recipe)
+            elif matched and len(missing) <= 2:
+                partial_matches.append((recipe, missing))
+
+        return full_matches, partial_matches
