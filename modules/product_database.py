@@ -1,3 +1,7 @@
+"""
+ProductDatabase loads and retrieves product locations from a JSON file.
+"""
+
 import json
 
 class ProductDatabase:

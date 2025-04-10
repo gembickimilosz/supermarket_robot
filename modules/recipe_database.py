@@ -1,3 +1,7 @@
+"""
+RecipeDatabase loads recipes and finds matches based on user-provided ingredients.
+"""
+
 import json
 
 class RecipeDatabase:

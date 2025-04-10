@@ -1,3 +1,7 @@
+"""
+SpeechModule provides simple input/output methods to simulate speech interaction.
+"""
+
 class SpeechModule:
     def get_input(self):
         return input("Customer: ")

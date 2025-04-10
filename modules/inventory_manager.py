@@ -1,3 +1,8 @@
+"""
+InventoryManager handles tracking stock levels and changes.
+Uses a stack to allow undo operations for stock changes.
+"""
+
 class InventoryManager:
     def __init__(self):
         self.stock = {}

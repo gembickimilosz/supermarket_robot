@@ -1,3 +1,8 @@
+"""
+Main program loop that runs the supermarket robot interface.
+Supports both Customer and Employee modes with a command-line menu.
+"""
+
 from modules.robot import Robot
 
 def main():
@@ -5,7 +10,7 @@ def main():
     mode = "customer"
 
     def print_customer_menu():
-        print("\n🛒 Customer Menu:")
+        print("\n Customer Menu:")
         print(" - 'Where is [product]?'")
         print(" - 'Stock [product]'")
         print(" - 'Suggest Recipe'")
@@ -15,14 +20,14 @@ def main():
         print(" - 'Exit'")
 
     def print_employee_menu():
-        print("\n🔧 Employee Menu:")
+        print("\n Employee Menu:")
         print(" - 'Show Stock'")
         print(" - 'Restock [item] [amount]'")
         print(" - 'Low Stock'")
         print(" - 'Switch to customer'")
         print(" - 'Exit'")
 
-    print("🛒 Welcome to the Supermarket Helper Robot!")
+    print("Welcome to the Supermarket Helper Robot!")
     print_customer_menu()
 
     while True:
@@ -35,18 +40,18 @@ def main():
         command = user_input.lower()
 
         if command == "exit":
-            print("👋 Goodbye!")
+            print("Thanks & Goodbye!")
             break
 
         elif command == "switch to employee":
             mode = "employee"
-            robot.speech.respond("🔧 Switched to Employee Mode.")
+            robot.speech.respond("Switched to Employee Mode.")
             print_employee_menu()
             robot.report_low_stock_items()
 
         elif command == "switch to customer":
             mode = "customer"
-            robot.speech.respond("🛍️ Switched to Customer Mode.")
+            robot.speech.respond("Switched to Customer Mode.")
             print_customer_menu()
 
         elif mode == "employee":
@@ -57,9 +62,9 @@ def main():
             elif command == "low stock":
                 robot.report_low_stock_items()
             elif command.startswith("add ingredient") or command.startswith("buy") or command.startswith("suggest"):
-                robot.speech.respond("❌ You are in Employee Mode. Switch to Customer Mode to perform customer actions.")
+                robot.speech.respond("You are in Employee Mode. Switch to Customer Mode to perform customer actions.")
             else:
-                robot.speech.respond("❌ Unknown employee command.")
+                robot.speech.respond("Unknown employee command.")
 
         elif mode == "customer":
             if command.startswith("add ingredient"):
@@ -70,7 +75,7 @@ def main():
                 else:
                     robot.speech.respond("Please specify an ingredient to add.")
             elif command.startswith("restock") or command.startswith("show stock") or command == "low stock":
-                robot.speech.respond("❌ You are in Customer Mode. Switch to Employee Mode to perform employee actions.")
+                robot.speech.respond("You are in Customer Mode. Switch to Employee Mode to perform employee actions.")
             else:
                 robot.add_customer_request(user_input)
                 robot.process_requests()
