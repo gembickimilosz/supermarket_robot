@@ -7,6 +7,7 @@ from modules.inventory_manager import InventoryManager
 
 class Robot:
     def __init__(self):
+        # Initialize the robot with necessary modules
         self.speech = SpeechModule()
         self.product_db = ProductDatabase()
         self.recipe_db = RecipeDatabase()
@@ -14,7 +15,7 @@ class Robot:
         self.ingredient_list = []  # List for recipe matching
         self.request_queue = deque()  # Queue for customer requests
 
-        # ✅ Set initial stock levels
+        # Set initial stock levels
         initial_stock = {
             "milk": 4,
             "bread": 15,
@@ -25,19 +26,25 @@ class Robot:
             "cheese": 10
         }
 
+
         for product, amount in initial_stock.items():
             self.inventory.set_stock(product, amount)
 
+
     def handle_product_request(self, product):
+        # Clean the product name by removing punctuation and converting to lowercase
         cleaned_product = product.translate(str.maketrans('', '', string.punctuation)).lower()
+        # Get location from the product database
         location = self.product_db.get_product_location(cleaned_product)
         self.speech.respond(f"The {cleaned_product} is located at {location}.")
 
     def handle_recipe_request(self):
+        # Check if the ingredient list is empty and inform user
         if not self.ingredient_list:
             self.speech.respond("Your ingredient list is empty. Please add ingredients first.")
             return
 
+        # Get matching recipes from the recipe database
         full_matches, partial_matches = self.recipe_db.get_matching_recipes(self.ingredient_list)
 
         if full_matches:
@@ -51,6 +58,7 @@ class Robot:
             self.speech.respond("Sorry, no recipes match your current ingredients.")
 
     def handle_stock_check(self, product):
+        # Clean and validate input, and show stock or error if product not found
         cleaned_product = product.translate(str.maketrans('', '', string.punctuation)).lower()
         if cleaned_product not in self.inventory.stock:
             self.speech.respond(f"There is no product named '{cleaned_product}'.")
@@ -59,6 +67,7 @@ class Robot:
         self.speech.respond(f"Current stock for {cleaned_product}: {stock}")
 
     def handle_full_stock_report(self):
+        # Show full inventory to an employee
         if not self.inventory.stock:
             self.speech.respond("Stock is currently empty.")
             return
@@ -68,17 +77,21 @@ class Robot:
             self.speech.respond(f"{product.capitalize()}: {amount}")
 
     def handle_purchase(self, items):
+        # Allow customers to buy multiple items at once
         items = [item.strip().lower() for item in items.split(',')]
 
         for item in items:
             if self.inventory.decrease_stock(item):
                 self.speech.respond(f"{item.capitalize()} purchased successfully.")
+                # Notify if stock is getting low
                 if self.inventory.get_stock(item) < 3:
-                    self.speech.respond(f"⚠️ Stock for {item} is low. Notify employee to restock.")
+                    self.speech.respond(f"Stock for {item} is low. Notify employee to restock.")
             else:
-                self.speech.respond(f"❌ Not enough {item} in stock or item not found.")
+                self.speech.respond(f"Not enough {item} in stock or item not found.")
 
     def handle_restock(self, command):
+        # Handle restocking of items by employees
+        # Example command: "restock milk 5"
         try:
             _, item, amount_str = command.strip().lower().split(maxsplit=2)
             amount = int(amount_str)
@@ -86,23 +99,26 @@ class Robot:
             self.inventory.set_stock(item, current_stock + amount)
             self.speech.respond(f"{item.capitalize()} restocked by {amount}. New stock: {current_stock + amount}")
         except ValueError:
-            self.speech.respond("❌ Invalid restock amount. Please provide a number.")
+            self.speech.respond("Invalid restock amount. Please provide a number.")
         except Exception:
-            self.speech.respond("❌ Usage: restock [item] [amount]")
+            self.speech.respond("Usage: restock [item] [amount]")
 
     def report_low_stock_items(self):
+        # Give employee a report of all items in low stock (less than 3)
         low_items = [item for item, qty in self.inventory.stock.items() if qty < 3]
         if not low_items:
-            self.speech.respond("✅ All items are sufficiently stocked.")
+            self.speech.respond("All items are sufficiently stocked.")
         else:
-            self.speech.respond("⚠️ The following items are low on stock:")
+            self.speech.respond("The following items are low on stock:")
             for item in low_items:
                 self.speech.respond(f"{item.capitalize()}: {self.inventory.get_stock(item)}")
 
     def add_customer_request(self, request):
+        # Add a customer request to the queue
         self.request_queue.append(request)
 
     def process_requests(self):
+        # Go through all queued requests and respond acordingly
         while self.request_queue:
             request = self.request_queue.popleft()
             command = request.lower()
