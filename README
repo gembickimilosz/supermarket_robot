@@ -1,0 +1,65 @@
+Supermarket Helper Robot
+
+Project Overview:
+
+This project focuses on development of a humanoid robot, that is capable of supporting customers and employees within supermarket environment. It can guide customers on positioning of products, check stock for product and even provide recipes from products they buy. This robot also performs checks for stock levels, providing updates for employees and allows them to restock products.
+
+Python in this case is mainly used as it has strong Object Oriented Programming (OOP) capabilities and it's an easy leanguage to use. This project also emphasizes clean, maintainable code using OOP principles such as encapsulation, modularity, and abstraction.
+
+Development Process:
+
+Development was split into components that are easy to test and well-managable:
+
+SpeechModule: Simulates input/output.
+ProductDatabase: Handles product location retrieval from JSON.
+RecipeDatabase: Suggests full and partial matches from recipes.
+InventoryManager: Tracks product stock with undo functionality using a stack.
+Robot: Central controller coordinating all modules.
+Main: User interface supporting both Customer and Employee modes.
+
+The project has started with creation of basic classes with future feature development, as needed. The testing phase was added at the end of creation, to ensure that there are no errors withitn functuality. In this case 'assert' statements were used to automatically validate key functionality in each module.
+
+Evaluation of Approach:
+
+What worked well:
+
+Definitely modular architecture made the code easy to test and update (if necessary).
+
+OOP principles enabled clean separation of responsibilities between components.
+
+Use of 'assert' provided fast and easy testing - no external libraries needed.
+
+Employee/Customer mode switch worked pretty nicely, enforcing access rules.
+
+What could be improved:
+
+Definitely a better UX; utilizing GUI in that case.
+
+Persistent data storage (e.g SQLite) to allow data retention accross sessions. 
+
+Exception handling expansion to provide more described error messages.
+
+What was tricky:
+
+Definitely handling inputs consistently (e.g., cleaning user input of punctuation and case sensitivity).
+
+Testing Approach:
+
+Testing was done using Python's built-in 'assert' system. Each module has its own written test in the /tests directory. These tests feature:
+
+Stock tracking and rollback.
+Recipe suggestions for both full and partial ingredient matches.
+Product location lookup.
+Robot's ability to process user commands in different modes.
+
+A 'run_tests.py' file runs all tests at the same time and outputs a success/failure messages.
+
+This method surely kept testing easy, and ensured that most important functionality testing is covered.
+
+Reflection:
+
+This was an amazing project to work on. It has definitely brough many emotions in me, coming from being totally frustrated to excitement and feeling of proud. It reminded me how useful class design is, especially when working with multiple systems (e.g. inventory, recipes and customer service logic).
+
+Looking ahead, I'd love to try expanding this into a full GUI version. One of the things that I'm actually interested in doing is integrating real voice recognition. With those additions in mind, it could definitely work as a kiosk assistant or even a tablet app.
+
+Overall, I'm very proud of this project and would definitely use it to remind myself on how my first humanoid robot was developed.
