@@ -10,10 +10,10 @@ Development Process:
 
 Development was split into components that are easy to test and well-managable:
 
-SpeechModule: Simulates input/output.
-ProductDatabase: Handles product location retrieval from JSON.
-RecipeDatabase: Suggests full and partial matches from recipes.
-InventoryManager: Tracks product stock with undo functionality using a stack.
+Speech Module: Simulates input/output.
+Product Database: Handles product location retrieval from JSON.
+Recipe Database: Suggests full and partial matches from recipes.
+Inventory Manager: Tracks product stock with undo functionality using a stack.
 Robot: Central controller coordinating all modules.
 Main: User interface supporting both Customer and Employee modes.
 
@@ -52,14 +52,34 @@ Recipe suggestions for both full and partial ingredient matches.
 Product location lookup.
 Robot's ability to process user commands in different modes.
 
-A 'run_tests.py' file runs all tests at the same time and outputs a success/failure messages.
+A 'run_tests.py' file runs all tests at the same time and outputs a success/failure messages. All test have been run and came out positive (no errors), with input:
+
+'Robot: You can make: Cheese Toast
+Robot: You can almost make 'Tomato Cheese Sandwich'! Just pick up: tomato
+Robot: You can almost make 'Omelette'! Just pick up: eggs, milk
+Robot: Rice purchased successfully.
+Robot: Stock for rice is low. Notify employee to restock.
+All tests have been run successfully!' 
 
 This method surely kept testing easy, and ensured that most important functionality testing is covered.
+
+How to run (from Terminal):
+
+python main.py - Launches the robot interface
+python run_tests.py - Runs all module tests
 
 Reflection:
 
 This was an amazing project to work on. It has definitely brough many emotions in me, coming from being totally frustrated to excitement and feeling of proud. It reminded me how useful class design is, especially when working with multiple systems (e.g. inventory, recipes and customer service logic).
 
-Looking ahead, I'd love to try expanding this into a full GUI version. One of the things that I'm actually interested in doing is integrating real voice recognition. With those additions in mind, it could definitely work as a kiosk assistant or even a tablet app.
+Looking ahead, I'd love to try expanding this into a full GUI version. One of the things that I'm actually interested in doing is integrating real voice recognition. With those additions in mind, it could definitely work as a kiosk assistant or even a tablet app. It would also be beneficial to include a more advanced database for products and recipes. That would ensure that there's enough data to test the robot on.
 
 Overall, I'm very proud of this project and would definitely use it to remind myself on how my first humanoid robot was developed.
+
+References: 
+
+Alchin, M. (2010) 'PEP 8 Style Guide for Python', in: Alchin, M. Pro Python. United States: Apress L. P.
+
+W3schools.com (2025) 'W3Schools Online Web Tutorials' Available from: https://www.w3schools.com/python/ [Accessed 10 April 2025]. 
+
+W3schools.com (2025) 'Python assert Keyword' Available from: https://www.w3schools.com/python/ref_keyword_assert.asp [Accessed 10 April 2025]. 
